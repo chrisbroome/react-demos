@@ -1,0 +1,12 @@
+.container {
+  display: block;
+  color: black;
+  width: 20em;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}

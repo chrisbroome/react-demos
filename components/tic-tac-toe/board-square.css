@@ -1,0 +1,26 @@
+
+.mark {
+  opacity: 0;
+}
+
+.checked {
+  opacity: 1;
+  transition: opacity ease-out .2s;
+}
+
+.grid-item {
+  cursor: pointer;
+  border: solid .025em black;
+  background-color: orange;
+  font-family: sans-serif;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+}
+
+.winning-square {
+  background-color: lightblue;
+  transition: background-color ease-in .2s;
+}
