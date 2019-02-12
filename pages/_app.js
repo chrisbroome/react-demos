@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import React from 'react'
 import App, {Container} from 'next/app'
-import './_app.css'
+import styles from './_app.css'
 
 // hack to get css loading to work correctly in development mode
 const initializeCssSSRHack = () => {
@@ -32,7 +32,9 @@ export default class MyApp extends App {
 
     return (
       <Container>
-        <Component {...pageProps} />
+        <div className={styles.appContainer}>
+          <Component {...pageProps} />
+        </div>
       </Container>
     )
   }
