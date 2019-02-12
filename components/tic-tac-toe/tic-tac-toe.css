@@ -9,6 +9,7 @@
   font-size: 2em;
   background-color: mediumaquamarine;
   border: solid 1px black;
+  cursor: pointer;
 }
 
 .result-message {
