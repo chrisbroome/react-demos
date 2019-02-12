@@ -1,20 +1,41 @@
 import Link from 'next/link'
 
-export default () => (
+const pages = [
+  {
+    pathname: 'tic-tac-toe',
+    linkText: 'Tic Tac Toe'
+  },
+  {
+    pathname: 'todos',
+    linkText: 'To-do List'
+  },
+  {
+    pathname: 'about',
+    linkText: 'About'
+  },
+  {
+    pathname: 'contact',
+    linkText: 'Contact'
+  },
+]
+
+const DemoLinks = ({pages}) => (
+  <ul>
+    {pages.map(({pathname, linkText}, index) =>
+      <li key={index}>
+        <Link prefetch href={{pathname}}><a>{linkText}</a></Link>
+      </li>
+    )}
+  </ul>
+)
+
+const IndexPage = () => (
   <div>
     <header>
       <h1>Demos</h1>
     </header>
-    <ul>
-      <li>
-        <Link href={{pathname: 'tic-tac-toe'}}><a>Tic Tac Toe</a></Link>
-      </li>
-      <li>
-        <Link href={{pathname: 'about'}}><a>About</a></Link>
-      </li>
-      <li>
-        <Link href={{pathname: 'contact'}}><a>Contact Us</a></Link>
-      </li>
-    </ul>
+    <DemoLinks pages={pages} />
   </div>
 )
+
+export default IndexPage
