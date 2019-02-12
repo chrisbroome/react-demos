@@ -1,77 +1,10 @@
-import Board from './board'
 import {useResetableState} from '../../hooks/hooks'
-
-const arrayOfLength = num => [...Array(num)]
-
-const createItem = ({
-  id = null,
-  belongsTo = null,
-  winningSquare = false,
-} = {}) => ({
-  id,
-  belongsTo,
-  winningSquare,
-})
-
-const emptyBoard = arrayOfLength(9).map((_, i) => createItem({id: i}))
+import Board from './board'
+import {emptyBoard, mapWinningSquares} from './game-logic'
+import styles from './tic-tac-toe.css'
 
 const x = 'X'
 const o = 'O'
-
-const testBoard = [
-  x, o, x,
-  o, x, o,
-  x, o, x,
-]
-
-const sliceRow = (b, rowIndex) => {
-  const start = 3 * rowIndex
-  return b.slice(start, start + 3)
-}
-
-const sliceColumn = (b, colIndex) => {
-  return [0, 1, 2].map(rowIndex => b[3 * rowIndex + colIndex])
-}
-
-const sliceDiagonal = (b) => {
-  return [0, 4, 8].map(i => b[i])
-}
-
-const sliceAntiDiagonal = (b) => {
-  return [2, 4, 6].map(i => b[i])
-}
-
-const chunkIsWinner = vec => {
-  const first = vec[0].belongsTo
-  return first && vec.every(x => x.belongsTo === first)
-}
-
-const setChunkAsWinner = chunk => {
-  chunk.forEach(item => item.winningSquare = true)
-}
-
-const updateChunkIfWinner = vec => {
-  if (!chunkIsWinner(vec)) return
-  setChunkAsWinner(vec)
-}
-
-const mapWinningSquares = (b) => {
-  // create a copy of the board that we will make changes to
-  const boardCopy = b.map(x => createItem(x))
-
-  arrayOfLength(3).forEach((_, index) => {
-    updateChunkIfWinner(sliceRow(boardCopy, index))
-  })
-
-  arrayOfLength(3).forEach((_, index) => {
-    updateChunkIfWinner(sliceColumn(boardCopy, index))
-  })
-
-  updateChunkIfWinner(sliceDiagonal(boardCopy))
-  updateChunkIfWinner(sliceAntiDiagonal(boardCopy))
-
-  return boardCopy
-}
 
 const TicTacToe = ({
   initialBoardState = emptyBoard,
@@ -101,23 +34,25 @@ const TicTacToe = ({
     setCurrentPlayer(currentPlayer === x ? o : x)
   }
 
+  const resultMessage = !gameResult
+    ? <span>Current Player: {currentPlayer}</span>
+    : gameResult.winner
+    ? `${gameResult.winner} wins!`
+    : gameResult.tie
+      ? 'Tie Game'
+      : 'Unknown Result'
+
   return (
-    <div>
-      <button onClick={resetBoardState}>
-        <span>
-          Start Over
-        </span>
-      </button>
+    <div className={styles.boardContainer}>
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+      <p className={styles.resultMessage}>{resultMessage}</p>
       <Board highlight={gameResult && gameResult.winner} grid={boardState} onCellSelect={handleCellSelect}></Board>
-      <p>Current Player: {currentPlayer}</p>
-      <p>{!gameResult
-        ? ''
-        : gameResult.winner
-          ? `${gameResult.winner} wins!`
-          : gameResult.tie
-            ? 'Tie Game'
-            : 'Unknown Result'}
-      </p>
+      <p></p>
+      <button className={styles.startOver} onClick={resetBoardState}>
+        Start Over
+      </button>
     </div>
   )
 }

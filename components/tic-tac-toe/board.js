@@ -1,9 +1,8 @@
 import styles from './board.css'
 import {BoardSquare} from './board-square'
 
-const Board = ({
+export const Board = ({
   grid = [],
-  color = null,
   onCellSelect,
 }) => {
   const handleCellSelect = (item) => {
