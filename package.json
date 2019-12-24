@@ -14,9 +14,11 @@
   "license": "MIT",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
-    "next": "^8.1.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "js-yaml": "^3.13.1",
+    "next": "^9.1.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "serialize-javascript": "^2.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
